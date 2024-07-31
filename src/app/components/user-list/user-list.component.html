@@ -4,9 +4,8 @@
 <ng-container *ngIf="!loading && !error">
     <div *ngFor="let user of users" (click)="viewUser(user.id)">
         <div>
-            <div mat-card-avatar
-                [style.background-image]="'url(' + user.avatar + ')'"></div>
-            <p>{{ user.first_name }} {{ user.last_name }}</p>
+            <img src="{{ user.avatar }}">
+            <p>{{ user.first_name }} {{ user.last_name }} | {{ user.email }}</p>
         </div>
     </div>
 
