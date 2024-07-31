@@ -11,16 +11,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { UserListComponent } from './components/user-list/user-list.component';
-import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { userReducer } from './store/reducers/user.reducer';
 import { UserEffects } from './store/effects/user.effects';
 
 @NgModule({
-  declarations: [
-    UserListComponent,
-    UserDetailsComponent,
-  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -33,6 +27,6 @@ import { UserEffects } from './store/effects/user.effects';
     EffectsModule.forRoot([UserEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: true }),
   ],
-  providers: [],
+  providers: []
 })
 export class AppModule { }
