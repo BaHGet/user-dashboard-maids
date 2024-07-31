@@ -1,22 +1,30 @@
 import { Component } from '@angular/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  standalone: true,
   imports: [
+    RouterModule,
     MatToolbarModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatInputModule,
+    UserListComponent
   ],
-  standalone: true
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'user-dashboard';
-  onSearch(value: string | null): void {
-    console.log('Search ID:', value);
-    // Implement your search logic here
+  title = 'User Dashboard';
+
+  onSearch(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const query = inputElement.value;
+    console.log('Search query:', query);
   }
 }
