@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-interface User {
+export interface User {
   id: number;
   email: string;
   first_name: string;
@@ -21,7 +21,6 @@ export class UserService {
 
   // Fetch paginated users
   getUsers(page: number): Observable<any> {
-    console.log(page)
     return this.http.get<{ data: User[] }>(`${this.apiUrl}?page=${page}`).pipe(
       map(response => response.data), // Extract the data array from the response
       catchError(this.handleError<User[]>('getUsers', []))
