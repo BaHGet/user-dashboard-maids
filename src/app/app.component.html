@@ -3,6 +3,7 @@
   <span class="spacer"></span>
   <form>
     <input matInput placeholder="Search by ID"
-      (input)="onSearch($any($event.target).value)" />
+      (input)="onSearch($event)" />
   </form>
 </mat-toolbar>
+<app-user-list></app-user-list>
