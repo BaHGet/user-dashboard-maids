@@ -1,23 +1,33 @@
-<!-- <div *ngIf="loading" class="loading">Loading users...</div>
-<div *ngIf="error" class="error">{{ error }}</div>
+<mat-progress-spinner
+    class="example-margin"
+    [mode]="mode"
+    *ngIf="users.length === 0"
+    class="loading-spinner">
+>Loading users...</mat-progress-spinner>
+<h1 *ngIf="!userFound">
+    User Not Found
+</h1>
+<mat-grid-list cols="3" rowHeight="2:2">
+    <mat-grid-tile *ngFor="let user of filteredUsers" >
+        <mat-card [routerLink]="['user', user.id]" appearance="raised" class="user-card">
+            <img mat-card-image [src]="user.avatar" class="avatar">
+            <mat-card-header>{{ user.first_name }} {{ user.last_name }}</mat-card-header>
+            <mat-card-content>{{ user.email }}</mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
 
-<ng-container *ngIf="!loading && !error">
-    <div *ngFor="let user of users" (click)="viewUser(user.id)">
-        <div>
-            <img src="{{ user.avatar }}">
-            <p>{{ user.first_name }} {{ user.last_name }} | {{ user.email }}</p>
-        </div>
-    </div>
-
-    <div class="pagination">
-        <button mat-button (click)="prevPage()"
-            [disabled]="page <= 1">Previous</button>
-        <button mat-button (click)="nextPage()">Next</button>
-    </div>
-</ng-container> -->
-<h1 *ngIf="users.length === 0">loading...</h1>
-<div *ngFor="let user of users" [routerLink]="['user', user.id]">
-    <img [src]="user.avatar">
-    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
-    <p>{{ user.email }}</p>
+<div class="pagination">
+    <button mat-button (click)="prevPage()"
+        [disabled]="page <= 1">Previous</button>
+    <span 
+        *ngFor="let pageNumber of totalPages" 
+        [ngClass]="{ 'page-number-span' : true ,'active' : page === pageNumber }"
+    >{{pageNumber}}</span>
+    <button 
+        mat-button
+        (click)="nextPage()"
+        [disabled]="page === totalPages.length"
+    >Next</button>
+    
 </div>
