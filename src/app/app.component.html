@@ -1,9 +1,10 @@
-<mat-toolbar color="primary">
-  <span>User Dashboard</span>
-  <span class="spacer"></span>
-  <form>
-    <input matInput placeholder="Search by ID"
+<!-- <mat-toolbar color="primary"> -->
+<span>User Dashboard</span>
+<span class="spacer"></span>
+<form>
+  <input matInput placeholder="Search by ID"
       (input)="onSearch($event)" />
-  </form>
-</mat-toolbar>
-<app-user-list></app-user-list>
+</form>
+<!-- </mat-toolbar> -->
+
+<router-outlet></router-outlet>
