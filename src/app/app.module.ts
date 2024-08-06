@@ -1,32 +1,28 @@
-// app.module.ts
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { RouterModule } from "@angular/router";
+import {HttpClientModule } from '@angular/common/http';
 
-import { HttpClientModule } from '@angular/common/http';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { userReducer } from './store/reducers/user.reducer';
-import { UserEffects } from './store/effects/user.effects';
+import { AppComponent } from "./app.component";
+import { UserListComponent } from "./components/user-list/user-list.component";
+import { UserComponent } from "./components/user-details/user-details.component";
+
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatFormFieldModule,
-    MatInputModule,
-    AppRoutingModule,
-    HttpClientModule,
-    StoreModule.forRoot({ user: userReducer }),
-    EffectsModule.forRoot([UserEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: true }),
-  ],
-  providers: []
+    declarations: [
+        AppComponent,
+        UserListComponent,
+        UserComponent
+    ],
+    imports: [
+        BrowserModule,
+        RouterModule.forRoot([
+            { path: '', component: UserListComponent },
+            { path: 'user/:id', component: UserComponent },
+        ]),
+        HttpClientModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
