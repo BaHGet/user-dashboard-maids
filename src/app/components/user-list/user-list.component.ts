@@ -1,54 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService, User } from '../../services/user.service';
-import { NgFor, NgIf } from '@angular/common';
-import { Router } from '@angular/router';
+import { UsersService } from '../../services/users/user.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],
-  standalone: true,
-  imports: [NgIf, NgFor]
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent  implements OnInit {
+  constructor(private userService : UsersService) { }
+
   users: User[] = [];
-  page: number = 1;
-  loading: boolean = false;
-  error: string | null = null;
-
-  constructor(private userService: UserService, private router: Router) {}
-
-  ngOnInit() {
-    this.loadUsers();
-  }
-
-  loadUsers() {
-    this.loading = true;
-    this.userService.getUsers(this.page).subscribe(
-      (data) => {
+  ngOnInit(): void {
+    if (this.users.length > 0) {
+      return;
+    } else {
+      this.userService.getAllUsers().subscribe((data: User[]) => {
         this.users = data;
-        this.loading = false;
-      },
-      (error) => {
-        this.error = 'Failed to load users';
-        this.loading = false;
-      }
-    );
-  }
-
-  nextPage() {
-    this.page++;
-    this.loadUsers();
-  }
-
-  prevPage() {
-    if (this.page > 1) {
-      this.page--;
-      this.loadUsers();
+      });
     }
   }
-
-  viewUser(id: number) {
-    this.router.navigate(['/user', id]);
-  }
 }
+
