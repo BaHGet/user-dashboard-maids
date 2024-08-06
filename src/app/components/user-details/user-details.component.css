@@ -1,3 +1,9 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .user-details {
     text-align: center;
     margin: 20px;
@@ -23,5 +29,5 @@
         background-color: #303f9f;
       }
     }
-  }
+}
   
