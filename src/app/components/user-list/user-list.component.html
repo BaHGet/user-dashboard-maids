@@ -1,4 +1,4 @@
-<div *ngIf="loading" class="loading">Loading users...</div>
+<!-- <div *ngIf="loading" class="loading">Loading users...</div>
 <div *ngIf="error" class="error">{{ error }}</div>
 
 <ng-container *ngIf="!loading && !error">
@@ -14,4 +14,10 @@
             [disabled]="page <= 1">Previous</button>
         <button mat-button (click)="nextPage()">Next</button>
     </div>
-</ng-container>
+</ng-container> -->
+<h1 *ngIf="users.length === 0">loading...</h1>
+<div *ngFor="let user of users" [routerLink]="['user', user.id]">
+    <img [src]="user.avatar">
+    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+    <p>{{ user.email }}</p>
+</div>
