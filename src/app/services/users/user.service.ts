@@ -10,17 +10,19 @@ export class UsersService {
 
   preUsers: User[] = []
   preUser: User;
+  preTotalPages: number;
+  currnetPage: number = 1;
   constructor(private http: HttpClient) { }
   
-  getAllUsers(): Observable<User[]> {
-    // console.log({preUsers:this.preUsers, preUser:this.preUser})
-    if (this.preUsers.length > 1) {
+  getAllUsers(pageNumber: number): Observable<User[]> {
+    if (this.preUsers.length > 1 && this.currnetPage === pageNumber) {
       return new Observable<User[]>((observer) => {
         observer.next(this.preUsers);
       });
     } else {
+      this.currnetPage = pageNumber
       return this.http
-        .get<any>('https://reqres.in/api/users')
+        .get<any>(`https://reqres.in/api/users?page=${pageNumber}`)
         .pipe(
           map((data) => {
             this.preUsers = data.data;
@@ -46,5 +48,20 @@ export class UsersService {
           })
         );
     }
+  }
+
+  getTotalPages(): Observable<number> {
+    if (this.preTotalPages) {
+      return new Observable<number>((observer) => {
+        observer.next(this.preTotalPages);});
+    } 
+    return this.http
+      .get<any>('https://reqres.in/api/users')
+      .pipe(
+        map((data) => {
+          this.preTotalPages = data.total_pages
+          return data.total_pages;
+        })
+      ); 
   }
 }
